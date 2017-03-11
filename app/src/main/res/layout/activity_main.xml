@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="gjw.finance.activity.MainActivity">
+
+
+    <FrameLayout
+        android:id="@+id/fl_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RadioGroup
+        android:id="@+id/rg_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/MyRadioButton"
+            android:checked="true"
+            android:drawableTop="@drawable/rb_selector_home"
+            android:text="首页" />
+
+        <RadioButton
+            android:id="@+id/rb_invest"
+            style="@style/MyRadioButton"
+            android:drawableTop="@drawable/rb_selector_invest"
+            android:text="投资" />
+
+        <RadioButton
+            android:id="@+id/rb_propert"
+            style="@style/MyRadioButton"
+            android:drawableTop="@drawable/rb_selector_propert"
+            android:text="朕的国库" />
+
+        <RadioButton
+            android:id="@+id/rb_more"
+            style="@style/MyRadioButton"
+            android:drawableTop="@drawable/rb_selector_more"
+            android:text="更多" />
+
+    </RadioGroup>
+
+
+</LinearLayout>
