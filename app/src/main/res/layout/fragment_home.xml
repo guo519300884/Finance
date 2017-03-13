@@ -6,7 +6,7 @@
 
     <include layout="@layout/base_head" />
 
-    <ScrollView
+    <gjw.finance.view.MyScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -97,19 +97,11 @@
             </LinearLayout>
 
 
-            <!--<com.atguigu.p2pinvest0828.ui.RoundProgress
+            <gjw.finance.view.MyProgress
                 android:id="@+id/roundPro_home"
                 android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="10dp"
-                atguigu:roundColor="@color/more_text"
-                atguigu:roundProgressColor="@color/round_red_common"
-                atguigu:textColor="@color/title_back"
-                atguigu:textSize="20dp"
-                atguigu:roundWith="10dp"
-                atguigu:max="100"
-                atguigu:progress="70"
-                />-->
+                android:layout_height="120dp" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -161,7 +153,7 @@
         </LinearLayout>
 
 
-    </ScrollView>
+    </gjw.finance.view.MyScrollView>
 
 
 </LinearLayout>

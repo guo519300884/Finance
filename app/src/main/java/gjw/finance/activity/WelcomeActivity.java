@@ -34,10 +34,6 @@ public class WelcomeActivity extends AppCompatActivity {
     ImageView welcome1;
     @InjectView(R.id.welcome2)
     ImageView welcome2;
-    @InjectView(R.id.welcome3)
-    ImageView welcome3;
-    @InjectView(R.id.welcome4)
-    ImageView welcome4;
     @InjectView(R.id.ll_welcome)
     LinearLayout llWelcome;
 
@@ -86,8 +82,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Glide.with(this).load(R.drawable.mq).into(welcome1);
         Glide.with(this).load(R.drawable.me).into(welcome2);
-        Glide.with(this).load(R.drawable.mw).into(welcome3);
-        Glide.with(this).load(R.drawable.mu).into(welcome4);
 
         AlphaAnimation aa = new AlphaAnimation(0, 1);
         aa.setDuration(3000);
