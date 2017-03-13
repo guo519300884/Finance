@@ -79,6 +79,13 @@ public class MyProgress extends View {
         paint.setStyle(Paint.Style.STROKE);
     }
 
+    /**
+     * 注意 构造器只会调用一次 onDraw方法会调用多闪
+     * 在构造器里初始化的数据 一定要是通用的（不变的）
+     * 否则会在第二次onDraw的时候进行覆盖
+     *
+     * @param canvas
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -106,12 +113,12 @@ public class MyProgress extends View {
         //圆弧颜色
         paint.setColor(sweepColor);
         //画圆弧
-        canvas.drawArc(rectF, 0, sweepArc, false, paint);
+        canvas.drawArc(rectF, 0, sweepArc * 360 / 100, false, paint);
 
 
         //画中间的字
-        int plan = (int) (sweepArc * 100 / 360);
-        String text = plan + "%";
+//        int plan = (int) (sweepArc * 100 / 360);
+        String text = sweepArc + "%";
         Rect rect = new Rect();
         paint.setColor(Color.BLUE);
         paint.setTextSize(UIUtils.px2dp(30));

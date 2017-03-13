@@ -7,6 +7,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
+import gjw.finance.utils.AppNetConfig;
 
 /**
  * Created by 皇 上 on 2017/3/10.
@@ -22,19 +23,24 @@ public class PropertFragment extends BaseFragment {
     private View view;
 
     @Override
-    public View initView() {
-        view = View.inflate(context, R.layout.fragment_propert, null);
-        ButterKnife.inject(this, view);
-        return view;
+    protected int getLayoutId() {
+        return R.layout.fragment_propert;
     }
 
     @Override
-    public void initData() {
-        super.initData();
-        baseTitle.setText("投资");
+    protected void initData(String json) {
 
     }
 
+    @Override
+    protected String getChildUrl() {
+        return AppNetConfig.INDEX;
+    }
+
+    @Override
+    protected void initListener() {
+        baseTitle.setText("国库");
+    }
 
     @Override
     public void onDestroyView() {

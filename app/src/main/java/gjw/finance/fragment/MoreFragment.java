@@ -7,6 +7,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
+import gjw.finance.utils.AppNetConfig;
 
 /**
  * Created by 皇 上 on 2017/3/10.
@@ -22,17 +23,23 @@ public class MoreFragment extends BaseFragment {
     private View view;
 
     @Override
-    public View initView() {
-        view = View.inflate(context, R.layout.fragment_more, null);
-        ButterKnife.inject(this, view);
-        return view;
+    protected int getLayoutId() {
+        return R.layout.fragment_more;
+    }
+
+    @Override
+    protected void initData(String json) {
 
     }
 
     @Override
-    public void initData() {
-        super.initData();
-        baseTitle.setText("更多");
+    protected String getChildUrl() {
+        return AppNetConfig.INDEX;
+    }
+
+    @Override
+    protected void initListener() {
+        baseTitle.setText("还有呢");
     }
 
     @Override

@@ -38,7 +38,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
-
+        threadId = android.os.Process.myPid();
+        handler = new Handler();
         //初始化异常捕获类
         //实际此功能到上线前开启
 //        CrashHandler.getInstence().init();

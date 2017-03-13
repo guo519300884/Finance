@@ -6,7 +6,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.squareup.picasso.Picasso;
@@ -23,8 +22,6 @@ import butterknife.InjectView;
 import gjw.finance.R;
 import gjw.finance.bean.HomeBean;
 import gjw.finance.utils.AppNetConfig;
-import gjw.finance.utils.LoadNet;
-import gjw.finance.utils.LoadNetHttp;
 import gjw.finance.utils.ThreadPool;
 import gjw.finance.view.MyProgress;
 
@@ -34,69 +31,51 @@ import gjw.finance.view.MyProgress;
 
 public class HomeFragment extends BaseFragment {
 
+
     @InjectView(R.id.base_title)
     TextView baseTitle;
     @InjectView(R.id.base_back)
     ImageView baseBack;
     @InjectView(R.id.base_setting)
     ImageView baseSetting;
-    @InjectView(R.id.tv_home_product)
-    TextView tvHomeProduct;
-    @InjectView(R.id.tv_home_yearrate)
-    TextView tvHomeYearrate;
     @InjectView(R.id.banner)
     Banner banner;
+    @InjectView(R.id.tv_home_product)
+    TextView tvHomeProduct;
     @InjectView(R.id.roundPro_home)
     MyProgress roundProHome;
-    private View view;
+    @InjectView(R.id.tv_home_yearrate)
+    TextView tvHomeYearrate;
     private HomeBean homeBean;
 
-    @Override
-    public View initView() {
-        view = View.inflate(context, R.layout.fragment_home, null);
-        ButterKnife.inject(this, view);
-        return view;
-    }
 
     @Override
-    public void initData() {
-        super.initData();
-
-        //设置监听 设置标题栏
-        initListener();
-
-        //二次封装的优点：1.便于优化管理 2.使用方便快捷
-        LoadNet.getDataPost(AppNetConfig.INDEX, new LoadNetHttp() {
-            @Override
-            public void success(String context) {
-                processData(context);
-            }
-
-            @Override
-            public void failure(String error) {
-                Toast.makeText(context, "联网失败" + error, Toast.LENGTH_SHORT).show();
-            }
-        });
+    protected int getLayoutId() {
+        return R.layout.fragment_home;
     }
 
-    private void initListener() {
-        baseTitle.setText("首页");
-        baseBack.setVisibility(View.INVISIBLE);
-        baseSetting.setVisibility(View.INVISIBLE);
-    }
-
-    private void processData(String context) {
-
-        homeBean = JSON.parseObject(context, HomeBean.class);
-
-        tvHomeProduct.setText(homeBean.getProInfo().getName());
-        tvHomeYearrate.setText(Double.parseDouble(homeBean.getProInfo().getYearRate()) + "%");
+    @Override
+    public void initData(String json) {
+        homeBean = JSON.parseObject(json, HomeBean.class);
+        tvHomeProduct.setText(this.homeBean.getProInfo().getName());
+        tvHomeYearrate.setText(Double.parseDouble(this.homeBean.getProInfo().getYearRate()) + "%");
 
         //界面的展示一定要在主线程
         if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
-            initProgress(homeBean.getProInfo());
-            initBanner(homeBean);
+            initProgress(this.homeBean.getProInfo());
+            initBanner(this.homeBean);
         }
+    }
+
+    @Override
+    protected String getChildUrl() {
+        return AppNetConfig.INDEX;
+    }
+
+    public void initListener() {
+        baseTitle.setText("首页");
+        baseBack.setVisibility(View.INVISIBLE);
+        baseSetting.setVisibility(View.INVISIBLE);
     }
 
     private void initProgress(final HomeBean.ProInfoBean proInfo) {
@@ -105,8 +84,8 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void run() {
                 int progress = Integer.parseInt(proInfo.getProgress());
-                for (int i = 0; i < progress; i++) {
-                    SystemClock.sleep(50);
+                for (int i = 0; i <= progress; i++) {
+                    SystemClock.sleep(30);
                     roundProHome.setProgress(i);
                 }
             }

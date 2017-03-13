@@ -1,6 +1,7 @@
 package gjw.finance.utils;
 
 import android.content.Context;
+import android.os.Process;
 import android.view.View;
 
 /**
@@ -36,4 +37,13 @@ public class UIUtils {
         return (int) (px / density + 0.5);
     }
 
+    public static void runOnUiThread(Runnable runnable) {
+        //比较pid来判断是不是主线程
+        if(MyApplication.getThreadId() == Process.myPid()) {
+            runnable.run();
+        }else {
+            //给handler发送一个runable
+            MyApplication.getHandler().post(runnable);
+        }
+    }
 }
