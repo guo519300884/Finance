@@ -25,6 +25,7 @@ import gjw.finance.fragment.HomeFragment;
 import gjw.finance.fragment.InvestFragment;
 import gjw.finance.fragment.MoreFragment;
 import gjw.finance.fragment.PropertFragment;
+import gjw.finance.utils.AppManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+
+        //添加进Activity管理栈
+        AppManager.getInstance().addActivity(this);
 
         initListener();
         inivData();

@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
+import gjw.finance.utils.AppManager;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -45,7 +46,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         ButterKnife.inject(this);
-
+        //添加进Activity管理栈
+        AppManager.getInstance().addActivity(this);
         //设置版本号
         setVersion();
         //設置動畫
@@ -121,5 +123,6 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        handler.removeCallbacksAndMessages(null);
+        AppManager.getInstance().remove(this);
     }
 }

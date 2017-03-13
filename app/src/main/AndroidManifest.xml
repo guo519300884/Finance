@@ -31,7 +31,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".utils.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/gg"
         android:label="@string/app_name"
