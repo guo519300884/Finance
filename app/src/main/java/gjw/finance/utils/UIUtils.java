@@ -13,15 +13,15 @@ public class UIUtils {
         return MyApplication.getContext();
     }
 
-    private static View getView(int layoutId) {
+    public static View getView(int layoutId) {
         return View.inflate(getContext(), layoutId, null);
     }
 
-    private static int getColor(int color) {
+    public static int getColor(int color) {
         return getContext().getResources().getColor(color);
     }
 
-    private static String[] getString(int StringId) {
+    public static String[] getString(int StringId) {
         return getContext().getResources().getStringArray(StringId);
     }
 

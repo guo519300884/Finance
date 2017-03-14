@@ -10,7 +10,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
-import gjw.finance.adapter.InvestAllAdapter;
+import gjw.finance.adapter.InvestAllAdapter03;
 import gjw.finance.bean.InvestAllBean;
 
 /**
@@ -23,7 +23,7 @@ public class InvestAllFragment extends BaseFragment {
     ListView lvAll;
     private InvestAllBean investAllBean;
     private List<InvestAllBean.DataBean> investAllBeanData;
-    private InvestAllAdapter investAllAdapter;
+    private InvestAllAdapter03 investAllAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -36,7 +36,10 @@ public class InvestAllFragment extends BaseFragment {
         investAllBeanData = investAllBean.getData();
 
 
-        investAllAdapter = new InvestAllAdapter(investAllBeanData);
+//        investAllAdapter = new InvestAllAdapter(investAllBeanData);
+//        investAllAdapter = new InvestAllAdapter01(investAllBeanData);
+//        investAllAdapter = new InvestAllAdapter02(investAllBeanData);
+        investAllAdapter = new InvestAllAdapter03(investAllBeanData);
         lvAll.setAdapter(investAllAdapter);
 
     }

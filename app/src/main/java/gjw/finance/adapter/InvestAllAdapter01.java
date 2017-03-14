@@ -1,11 +1,10 @@
 package gjw.finance.adapter;
 
+
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -18,35 +17,14 @@ import gjw.finance.view.MyProgress;
  * Created by 皇上 on 2017/3/14.
  */
 
-public class InvestAllAdapter extends BaseAdapter {
+public class InvestAllAdapter01 extends BaseInvestAllAdapter01<InvestAllBean.DataBean> {
 
-    private final List<InvestAllBean.DataBean> investAllBeanData = new ArrayList<>();
-
-    public InvestAllAdapter(List<InvestAllBean.DataBean> investAllBeanData) {
-        if (investAllBeanData != null && investAllBeanData.size() > 0) {
-            this.investAllBeanData.clear();
-            this.investAllBeanData.addAll(investAllBeanData);
-        }
+    public InvestAllAdapter01(List<InvestAllBean.DataBean> investAllBeanData) {
+        super(investAllBeanData);
     }
 
     @Override
-    public int getCount() {
-        return investAllBeanData.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return investAllBeanData.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
+    public View getChildView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = View.inflate(parent.getContext(), R.layout.adapter_invest_all, null);
