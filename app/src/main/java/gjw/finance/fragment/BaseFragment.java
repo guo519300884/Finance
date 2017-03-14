@@ -1,6 +1,7 @@
 package gjw.finance.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -53,7 +54,8 @@ public abstract class BaseFragment extends Fragment {
         loadingPager.loadData();
     }
 
-    protected abstract int getLayoutId();
+    protected abstract  @LayoutRes
+    int getLayoutId();
 
     protected abstract void initData(String json);
 

@@ -1,6 +1,7 @@
 package gjw.finance.view;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ public abstract class LoadingPager extends FrameLayout {
     private View emptyView;
     private View sucessView;
     private ResultState resultState;
+    private AsyncHttpClient httpClient;
 
     public LoadingPager(@NonNull Context context) {
         super(context);
@@ -80,6 +82,7 @@ public abstract class LoadingPager extends FrameLayout {
         });
     }
 
+
     //根据状态显示的页面
     private void showView() {
         //是否显示错误页面
@@ -91,6 +94,7 @@ public abstract class LoadingPager extends FrameLayout {
         //是否 显示空页面
         emptyView.setVisibility(
                 current_state == STATE_EMPTY ? View.VISIBLE : View.INVISIBLE);
+        //若页面为空就添加
         if (sucessView == null) {
             sucessView = View.inflate(context, getViewId(), null);
             this.addView(sucessView, params);
@@ -103,8 +107,15 @@ public abstract class LoadingPager extends FrameLayout {
     //根据不同的网络状态加载相应的页面
     public void loadData() {
         //加载网络
-        AsyncHttpClient httpClient = new AsyncHttpClient();
+        httpClient = new AsyncHttpClient();
         String url = getUrl();
+
+        //判断是否空 若空默认不加载网络
+        if (TextUtils.isEmpty(url)) {
+            resultState = ResultState.SUCCESS;
+            loadImage();
+            return;
+        }
 
         httpClient.post(url, new AsyncHttpResponseHandler() {
             @Override
@@ -116,8 +127,8 @@ public abstract class LoadingPager extends FrameLayout {
                 } else {
                     resultState = ResultState.SUCCESS;
                     resultState.setJson(content);
-                    loadImage();
                 }
+                loadImage();
             }
 
             @Override
@@ -175,5 +186,7 @@ public abstract class LoadingPager extends FrameLayout {
 
     protected abstract String getUrl();
 
-    public abstract int getViewId();
+    public abstract
+    @LayoutRes
+    int getViewId();
 }

@@ -34,4 +34,6 @@ dependencies {
     compile files('libs/android-async-http-master.jar')
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.youth.banner:banner:1.4.9'
+    compile 'com.orhanobut:logger:1.15'
+
 }

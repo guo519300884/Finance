@@ -31,7 +31,6 @@ import gjw.finance.view.MyProgress;
 
 public class HomeFragment extends BaseFragment {
 
-
     @InjectView(R.id.base_title)
     TextView baseTitle;
     @InjectView(R.id.base_back)
@@ -65,6 +64,7 @@ public class HomeFragment extends BaseFragment {
             initProgress(this.homeBean.getProInfo());
             initBanner(this.homeBean);
         }
+        initListener();
     }
 
     @Override
@@ -84,6 +84,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void run() {
                 int progress = Integer.parseInt(proInfo.getProgress());
+
                 for (int i = 0; i <= progress; i++) {
                     SystemClock.sleep(30);
                     roundProHome.setProgress(i);
