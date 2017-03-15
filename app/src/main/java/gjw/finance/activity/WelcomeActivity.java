@@ -33,7 +33,6 @@ public class WelcomeActivity extends BaseActivity {
     ImageView welcome2;
     @InjectView(R.id.ll_welcome)
     LinearLayout llWelcome;
-    private boolean isLogin = false;
 
     @Override
     public void initData() {
@@ -60,7 +59,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
 
-    private String setVersion() {
+    private String getVersion() {
         try {
             //获取到包的管理器
             PackageManager packageManager = getPackageManager();
@@ -77,6 +76,10 @@ public class WelcomeActivity extends BaseActivity {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private void setVersion() {
+        tvEdition.setText(getVersion());
     }
 
     //请求本地动图 & 设置欢迎动画
@@ -97,10 +100,12 @@ public class WelcomeActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (isLogin) {
+                if (isLogin()) {
                     onStartActivity();
+                    finish();
                 } else {
                     startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                    finish();
                 }
             }
 
@@ -110,6 +115,10 @@ public class WelcomeActivity extends BaseActivity {
             }
         });
         welcome.startAnimation(aa);
+    }
+
+    private boolean isLogin() {
+        return false;
     }
 
     //跳转页面
@@ -129,4 +138,9 @@ public class WelcomeActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getInstance().remove(this);
+    }
 }
