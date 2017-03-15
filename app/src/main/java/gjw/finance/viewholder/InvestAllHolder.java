@@ -13,7 +13,7 @@ import gjw.finance.view.MyProgress;
  * Created by 皇上 on 2017/3/14.
  */
 
-public class InvestHolder extends BaseHolder<InvestAllBean.DataBean> {
+public class InvestAllHolder extends BaseHolder<InvestAllBean.DataBean> {
 
     @InjectView(R.id.p_name)
     TextView pName;
@@ -39,5 +39,15 @@ public class InvestHolder extends BaseHolder<InvestAllBean.DataBean> {
     public void setChildData() {
         InvestAllBean.DataBean dataBean = getT();
         pName.setText(dataBean.getName());
+        pMoney.setText(dataBean.getMoney());
+        pMinnum.setText(dataBean.getMinTouMoney());
+        pMinzouzi.setText(dataBean.getMemberNum());
+        pSuodingdays.setText(dataBean.getSuodingDays());
+        pYearlv.setText(dataBean.getYearRate());
+
+        int parseInt = Integer.parseInt(dataBean.getProgress());
+
+        pProgresss.setPp(parseInt);
+//        pProgresss.setProgress(Integer.parseInt(dataBean.getProgress()));
     }
 }

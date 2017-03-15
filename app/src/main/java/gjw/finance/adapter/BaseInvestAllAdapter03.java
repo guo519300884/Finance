@@ -52,7 +52,6 @@ public abstract class BaseInvestAllAdapter03<T> extends BaseAdapter {
         T t = investAllBeanData.get(position);
         baseHolder.setData(t);
 
-
         return baseHolder.getView();
     }
 

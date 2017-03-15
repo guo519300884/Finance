@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <gjw.finance.view.randomLayout.StellarMap
+        android:id="@+id/aa"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="5161351"/>
+        android:layout_height="match_parent"></gjw.finance.view.randomLayout.StellarMap>
 
 </LinearLayout>

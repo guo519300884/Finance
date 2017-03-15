@@ -5,11 +5,34 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_product_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:text="硅谷金融壕运当头，首投返现最高188元"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="20sp" />
+
+    <!--<com.atguigu.p2pinvest0714.ui.MyTextView
+        android:id="@+id/tv_product_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:text="硅谷金融壕运当头，首投返现最高188元"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="20sp" />-->
+
     <ListView
         android:id="@+id/lv_all"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
-
+        android:layout_height="wrap_content"
+        android:divider="@color/title_text"
+        android:dividerHeight="10dp"></ListView>
 
 
 </LinearLayout>

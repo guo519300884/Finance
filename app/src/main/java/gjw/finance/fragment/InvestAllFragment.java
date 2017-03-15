@@ -1,7 +1,9 @@
 package gjw.finance.fragment;
 
 
+import android.view.animation.TranslateAnimation;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 
@@ -21,6 +23,8 @@ public class InvestAllFragment extends BaseFragment {
 
     @InjectView(R.id.lv_all)
     ListView lvAll;
+    @InjectView(R.id.tv_product_title)
+    TextView tvProductTitle;
     private InvestAllBean investAllBean;
     private List<InvestAllBean.DataBean> investAllBeanData;
     private InvestAllAdapter03 investAllAdapter;
@@ -42,6 +46,7 @@ public class InvestAllFragment extends BaseFragment {
         investAllAdapter = new InvestAllAdapter03(investAllBeanData);
         lvAll.setAdapter(investAllAdapter);
 
+        initListener();
     }
 
     @Override
@@ -51,7 +56,14 @@ public class InvestAllFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+        TranslateAnimation ta = new TranslateAnimation(500, -500, 0, 0);
+        ta.setDuration(5000);
+        ta.setRepeatCount(500);
+        tvProductTitle.startAnimation(ta);
 
+//        tvProductTitle.setFocusable(true);
+//        tvProductTitle.setFocusableInTouchMode(true);
+//        tvProductTitle.requestFocus();
     }
 
     @Override

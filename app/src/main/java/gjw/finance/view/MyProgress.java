@@ -8,11 +8,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
 import gjw.finance.R;
+import gjw.finance.utils.ThreadPool;
 import gjw.finance.utils.UIUtils;
 
 /**
@@ -144,5 +146,28 @@ public class MyProgress extends View {
          * postinvalidate 是在分线程强制刷新
          */
         postInvalidate();
+    }
+
+    public void setPp(final int parseInt) {
+
+        if (sweepArc == 0) {
+            ThreadPool.getInstance().getGlobalThread().execute(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i <= parseInt; i++) {
+
+                        SystemClock.sleep(30);
+
+                        sweepArc = i;
+
+                        postInvalidate();
+                    }
+                }
+            });
+
+        } else{
+            sweepArc = parseInt;
+            postInvalidate();
+        }
     }
 }
