@@ -41,12 +41,6 @@ public class MainActivity extends BaseActivity {
     private boolean isDoulbe = false;
 
     public void initData() {
-
-        // 去掉窗口标题
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        // 隐藏顶部的状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         //添加进Activity管理栈
         AppManager.getInstance().addActivity(this);
 
@@ -91,6 +85,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
+
+        // 去掉窗口标题
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // 隐藏顶部的状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         return R.layout.activity_main;
     }
 

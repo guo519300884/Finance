@@ -20,6 +20,7 @@ import java.util.Map;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
+import gjw.finance.bean.UserInfo;
 import gjw.finance.utils.AppNetConfig;
 import gjw.finance.utils.LoadNet;
 import gjw.finance.utils.LoadNetHttp;
@@ -84,7 +85,7 @@ public class LoginActivity extends BaseActivity {
                 login();
                 break;
             case R.id.login_regitster_tv:
-                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
         }
     }
@@ -104,6 +105,8 @@ public class LoginActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         map.put("phone", phone);
         map.put("password", pw);
+        Log.e("TAG", "LoginActivity login()" + phone);
+        Log.e("TAG", "LoginActivity login()" + pw);
         //去服务区登录
         LoadNet.getDataPost(AppNetConfig.LOGIN, map, new LoadNetHttp() {
 
@@ -116,11 +119,16 @@ public class LoginActivity extends BaseActivity {
                 Boolean success = jsonObject.getBoolean("success");
                 if (success) {
                     //成功就解析数据
-//                            JSON.parseObject(context,);
+                    UserInfo userInfo = JSON.parseObject(context, UserInfo.class);
+                    //保存信息到sp
+                    savaUser(userInfo);
+                    //跳转到登录页面
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
 
+                } else {
+                    Toast.makeText(LoginActivity.this, "有问题,你再检查检查", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
 
             @Override

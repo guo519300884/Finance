@@ -49,7 +49,7 @@ public class LoadNet {
             }
 
 
-            httpClient.post(url, new AsyncHttpResponseHandler() {
+            httpClient.post(url,params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String content) {
                     super.onSuccess(content);

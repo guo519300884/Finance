@@ -8,8 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,24 +81,35 @@ public class RegisterActivity extends BaseActivity {
                     Toast.makeText(this, "不能有空的呀", Toast.LENGTH_SHORT).show();
                     return;
 
+                } else if (!pwd.equals(pwda)) {
+                    Toast.makeText(this, "两次密码不一样", Toast.LENGTH_SHORT).show();
+                    etRegisterPwd.setText("");
+                    etRegisterPwdagain.setText("");
                 }
 
                 Map<String, String> map = new HashMap<>();
-                map.put("number", number);
+                map.put("phone", number);
                 map.put("name", name);
-                map.put("pwd", pwd);
+                map.put("password", pwd);
                 LoadNet.getDataPost(AppNetConfig.REGISTER, map, new LoadNetHttp() {
                     @Override
                     public void success(String context) {
-                        JSONObject jsonObject = JSON.parseObject(context);
-                        Boolean isExist = jsonObject.getBoolean("isExist");
 
-                        if (isExist) {
-                            Toast.makeText(RegisterActivity.this, "此账号已存在", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                            finish();
+                        //                        JSONObject jsonObject = JSON.parseObject(context);
+                        //                        Boolean isExist = jsonObject.getBoolean("isExist");
+                        try {
+                            org.json.JSONObject jsonObject = new org.json.JSONObject(context);
+                            boolean isExist = jsonObject.optBoolean("isExist");
+                            if (isExist) {
+                                Toast.makeText(RegisterActivity.this, "此账号已存在", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+
                     }
 
                     @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -118,7 +119,11 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private boolean isLogin() {
-        return false;
+        String name = getUser().getData().getName();
+        if (TextUtils.isEmpty(name)) {
+            return false;
+        }
+        return true;
     }
 
     //跳转页面
