@@ -24,16 +24,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile files('libs/android-async-http-master.jar')
+
+
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
-    testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:5.1.1'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.alibaba:fastjson:1.2.28.odps'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile files('libs/android-async-http-master.jar')
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.youth.banner:banner:1.4.9'
     compile 'com.orhanobut:logger:1.15'
-
+    compile 'com.zhy:flowlayout-lib:1.0.3'
+    testCompile 'junit:junit:4.12'
 }

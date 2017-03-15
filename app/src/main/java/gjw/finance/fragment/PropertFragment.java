@@ -30,6 +30,11 @@ public class PropertFragment extends BaseFragment {
     @Override
     protected void initData(String json) {
 
+        baseTitle.setText("国库");
+        baseBack.setVisibility(View.INVISIBLE);
+        baseSetting.setVisibility(View.INVISIBLE);
+
+
     }
 
     @Override
@@ -39,7 +44,7 @@ public class PropertFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-        baseTitle.setText("国库");
+
     }
 
     @Override

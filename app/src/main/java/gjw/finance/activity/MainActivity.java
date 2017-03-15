@@ -1,10 +1,8 @@
 package gjw.finance.activity;
 
-import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,7 +15,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
 import gjw.finance.fragment.BaseFragment;
@@ -27,7 +24,7 @@ import gjw.finance.fragment.MoreFragment;
 import gjw.finance.fragment.PropertFragment;
 import gjw.finance.utils.AppManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
 
     List<BaseFragment> fragments;
@@ -43,26 +40,31 @@ public class MainActivity extends AppCompatActivity {
     private Fragment tempFragment;
     private boolean isDoulbe = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initData() {
 
         // 去掉窗口标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 隐藏顶部的状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
-
         //添加进Activity管理栈
         AppManager.getInstance().addActivity(this);
 
-        initListener();
-        inivData();
+        fragments = new ArrayList<>();
+        fragments.add(new HomeFragment());
+        fragments.add(new InvestFragment());
+        fragments.add(new PropertFragment());
+        fragments.add(new MoreFragment());
+        //默认选择主页
+        switchFragment(fragments.get(0));
     }
 
-    private void initListener() {
+    @Override
+    public void initTitle() {
+
+    }
+
+    public void initListener() {
         rgBtn.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -87,6 +89,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
     private void switchFragment(Fragment nowFragment) {
         if (tempFragment != nowFragment) {
 
@@ -107,17 +114,6 @@ public class MainActivity extends AppCompatActivity {
             tempFragment = nowFragment;
         }
     }
-
-    private void inivData() {
-        fragments = new ArrayList<>();
-        fragments.add(new HomeFragment());
-        fragments.add(new InvestFragment());
-        fragments.add(new PropertFragment());
-        fragments.add(new MoreFragment());
-        //默认选择主页
-        switchFragment(fragments.get(0));
-    }
-
 
     //双击退出
     @Override

@@ -3,9 +3,7 @@ package gjw.finance.activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -15,12 +13,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
 import gjw.finance.utils.AppManager;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
 
     @InjectView(R.id.tv_name)
     TextView tvName;
@@ -36,12 +33,11 @@ public class WelcomeActivity extends AppCompatActivity {
     ImageView welcome2;
     @InjectView(R.id.ll_welcome)
     LinearLayout llWelcome;
+    private boolean isLogin = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        ButterKnife.inject(this);
+    public void initData() {
+
         //添加进Activity管理栈
         AppManager.getInstance().addActivity(this);
         //设置版本号
@@ -49,14 +45,20 @@ public class WelcomeActivity extends AppCompatActivity {
         //設置動畫
         initView();
 
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                onStartActivity();
-//            }
-//        }, 3000);
-
+        /**
+         *  handler.postDelayed(new Runnable() {
+        @Override public void run() {
+        onStartActivity();
+        }
+        }, 3000);
+         */
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_welcome;
+    }
+
 
     private String setVersion() {
         try {
@@ -95,7 +97,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                onStartActivity();
+                if (isLogin) {
+                    onStartActivity();
+                } else {
+                    startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                }
             }
 
             @Override
@@ -114,9 +120,13 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        handler.removeCallbacksAndMessages(null);
-        AppManager.getInstance().remove(this);
+    public void initTitle() {
+
     }
+
+    @Override
+    public void initListener() {
+
+    }
+
 }

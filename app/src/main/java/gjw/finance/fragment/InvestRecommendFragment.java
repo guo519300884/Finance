@@ -3,6 +3,7 @@ package gjw.finance.fragment;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -96,7 +97,7 @@ public class InvestRecommendFragment extends BaseFragment {
         @Override
         public View getView(int group, int position, View convertView) {
 
-            TextView tv = new TextView(getActivity());
+            final TextView tv = new TextView(getActivity());
             if (group == 0) {
                 tv.setText(oneGroup[position]);
             } else {
@@ -108,6 +109,13 @@ public class InvestRecommendFragment extends BaseFragment {
             int blue = random.nextInt(211); //0-255 颜色值
 
             tv.setTextColor(Color.rgb(red, green, blue));
+
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "666" + tv.getText().toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
             return tv;
         }

@@ -29,7 +29,7 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     protected void initData(String json) {
-
+        baseTitle.setText("还有呢");
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-        baseTitle.setText("还有呢");
+
     }
 
     @Override
