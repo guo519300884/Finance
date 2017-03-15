@@ -8,16 +8,25 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@android:color/holo_blue_light">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="个人中心"
+            android:textColor="@android:color/white"
+            android:textSize="25sp" />
+
         <TextView
             android:id="@+id/tv_settings"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:text="设置"
-            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:text="设置"
             android:textColor="@android:color/white"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <ScrollView
@@ -40,8 +49,8 @@
                     android:id="@+id/rl_me_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_centerHorizontal="true">
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp">
 
                     <ImageView
                         android:layout_width="64dp"
