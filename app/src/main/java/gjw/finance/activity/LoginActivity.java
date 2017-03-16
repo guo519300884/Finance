@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import gjw.finance.R;
 import gjw.finance.bean.UserInfo;
 import gjw.finance.utils.AppNetConfig;
+import gjw.finance.utils.CacheUtils;
 import gjw.finance.utils.LoadNet;
 import gjw.finance.utils.LoadNetHttp;
 
@@ -121,7 +122,8 @@ public class LoginActivity extends BaseActivity {
                     //成功就解析数据
                     UserInfo userInfo = JSON.parseObject(context, UserInfo.class);
                     //保存信息到sp
-                    savaUser(userInfo);
+//                    savaUser(userInfo);
+                    CacheUtils.setUser(userInfo);
                     //跳转到登录页面
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();

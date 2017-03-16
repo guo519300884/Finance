@@ -12,14 +12,15 @@ import android.graphics.PorterDuffXfermode;
  */
 
 public class BitmapUtils {
-      /*
-   ALPHA_8 代表8位Alpha位图
-   ARGB_4444 代表16位ARGB位图
-   ARGB_8888 代表32位ARGB位图
-   RGB_565 代表8位RGB位图
-    一般情况下我们都是使用的ARGB_8888，由此可知它是最占内存的，因为一个像素占32位，
-    8位=1字节，所以一个像素占4字节的内存。假设有一张480x800的图片，
-    如果格式为ARGB_8888，那么将会占用1500KB的内存。*/
+    /**
+     * ALPHA_8 代表8位Alpha位图
+     * ARGB_4444 代表16位ARGB位图
+     * ARGB_8888 代表32位ARGB位图
+     * RGB_565 代表8位RGB位图
+     * 一般情况下我们都是使用的ARGB_8888，由此可知它是最占内存的，因为一个像素占32位，
+     * 8位=1字节，所以一个像素占4字节的内存。假设有一张480x800的图片，
+     * 如果格式为ARGB_8888，那么将会占用1500KB的内存。
+     */
 
     public static Bitmap circleBitmap(Bitmap source) {
         //获取Bitmap的宽度

@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import butterknife.InjectView;
 import gjw.finance.R;
 import gjw.finance.utils.AppManager;
+import gjw.finance.utils.CacheUtils;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -119,7 +120,9 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private boolean isLogin() {
-        String name = getUser().getData().getName();
+//        String name = getUser().getData().getName();
+        String name = CacheUtils.getUser().getData().getName();
+
         if (TextUtils.isEmpty(name)) {
             return false;
         }
