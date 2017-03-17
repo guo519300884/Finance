@@ -15,10 +15,10 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
-import gjw.finance.activity.LineChartActivity;
-import gjw.finance.activity.PieChartActivity;
 import gjw.finance.activity.BarChartActivity;
+import gjw.finance.activity.LineChartActivity;
 import gjw.finance.activity.MainActivity;
+import gjw.finance.activity.PieChartActivity;
 import gjw.finance.base.BaseFragment;
 import gjw.finance.bean.UserInfo;
 import gjw.finance.utils.AppNetConfig;
@@ -121,7 +121,7 @@ public class PropertFragment extends BaseFragment {
         ButterKnife.reset(this);
     }
 
-    @OnClick({R.id.tv_settings, R.id.iv_me_icon, R.id.ll_touzi, R.id.ll_touzi_zhiguan, R.id.ll_zichan})
+    @OnClick({R.id.tv_settings, R.id.iv_me_icon, R.id.ll_touzi, R.id.ll_touzi_zhiguan, R.id.ll_zichan, R.id.recharge, R.id.withdraw})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_settings:
@@ -139,6 +139,12 @@ public class PropertFragment extends BaseFragment {
             case R.id.ll_zichan:
                 startActivity(new Intent(getActivity(), PieChartActivity.class));
                 break;
+            case R.id.recharge:
+                startActivity(new Intent(getActivity(), TopUpActivity.class));
+                break;
+            case R.id.withdraw:
+                startActivity(new Intent(getActivity(), WithdrawActivity.class));
+                break;
         }
     }
 
@@ -147,5 +153,4 @@ public class PropertFragment extends BaseFragment {
         intent.putExtra("bitmap", bitmap);
         startActivity(intent);
     }
-
 }

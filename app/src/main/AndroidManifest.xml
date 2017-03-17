@@ -51,7 +51,9 @@
         <activity android:name=".fragment.SettingActivity" />
         <activity android:name=".activity.LineChartActivity" />
         <activity android:name=".activity.BarChartActivity" />
-        <activity android:name=".activity.PieChartActivity"></activity>
+        <activity android:name=".activity.PieChartActivity" />
+        <activity android:name=".fragment.TopUpActivity" />
+        <activity android:name=".fragment.WithdrawActivity"></activity>
     </application>
 
 </manifest>
