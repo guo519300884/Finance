@@ -22,11 +22,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
 import gjw.finance.base.BaseActivity;
-import gjw.finance.fragment.PropertFragment;
 import gjw.finance.utils.BitmapUtils;
 import gjw.finance.utils.CacheUtils;
 import gjw.finance.utils.UIUtils;
@@ -35,6 +39,7 @@ import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 public class SettingActivity extends BaseActivity {
 
+    private static File filesDir;
     @InjectView(R.id.base_title)
     TextView baseTitle;
     @InjectView(R.id.base_back)
@@ -78,10 +83,6 @@ public class SettingActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.base_back:
-
-                Intent intent = new Intent(SettingActivity.this, PropertFragment.class);
-                intent.putExtra("11", circleBitmap);
-
                 finish();
                 break;
             case R.id.iv_user_icon:
@@ -155,9 +156,9 @@ public class SettingActivity extends BaseActivity {
 
             ivUserIcon.setImageBitmap(circleBitmap);
             //保存图片
-            CacheUtils.saveBitmap(circleBitmap);
+            saveImage(bitmap);
 
-        } else {
+        } else if (data != null) {
             //解析图库的操作，跟android系统有很大相关性。不同的系统使用uri的authority有很大不同。
             //android各个不同的系统版本,对于获取外部存储上的资源，返回的Uri对象都可能各不一样,
             // 所以要保证无论是哪个系统版本都能正确获取到图片资源的话就需要针对各种情况进行一个处理了
@@ -176,7 +177,36 @@ public class SettingActivity extends BaseActivity {
             //显示
             ivUserIcon.setImageBitmap(circleBitmap);
             //保存到本地
-            CacheUtils.saveBitmap(decodeFile);
+            saveImage(decodeFile);
+        }
+    }
+
+    //保存图片  保存到本地 需要压缩compress
+    public void saveImage(Bitmap bitmap) {
+
+        FileOutputStream fos = null;
+        try {
+            //判断是否有SD卡
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                filesDir = getExternalFilesDir("");
+            } else {
+                filesDir = getFilesDir();
+            }
+            fos = new FileOutputStream(new File(filesDir, "123.png"));
+            //第一个参数是图片的格式，第二个参数是图片的质量数值大的大质量高，第三个是输出流
+            circleBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            //保存当前是否有更新
+            CacheUtils.saveImage(true);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -1,13 +1,8 @@
 package gjw.finance.utils;
 
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.os.Environment;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import gjw.finance.bean.DataBean;
 import gjw.finance.bean.UserInfo;
@@ -53,29 +48,13 @@ public class CacheUtils {
         edit.commit();
     }
 
-    //保存图片  保存到本地 需要压缩compress
-    public static void saveBitmap(Bitmap circleBitmap) {
+    public static void saveImage(Boolean isUpdate) {
+        SharedPreferences sp = context.getSharedPreferences("image", MODE_PRIVATE);
+        sp.edit().putBoolean("update", isUpdate).commit();
+    }
 
-        FileOutputStream fos = null;
-        try {
-            //判断是否有SD卡
-            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                filesDir = context.getExternalFilesDir("");
-            } else {
-                filesDir = context.getFilesDir();
-            }
-            fos = new FileOutputStream(new File(filesDir, "123.png"));
-            circleBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public static Boolean isUpdate() {
+        SharedPreferences sp = context.getSharedPreferences("image", MODE_PRIVATE);
+        return sp.getBoolean("update", false);
     }
 }

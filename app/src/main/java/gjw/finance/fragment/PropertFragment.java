@@ -2,7 +2,9 @@ package gjw.finance.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -10,6 +12,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -38,7 +45,6 @@ import jp.wasabeef.picasso.transformations.CropSquareTransformation;
 
 public class PropertFragment extends BaseFragment {
 
-
     @InjectView(R.id.tv_settings)
     TextView tvSettings;
     @InjectView(R.id.iv_me_icon)
@@ -59,7 +65,11 @@ public class PropertFragment extends BaseFragment {
     TextView llTouziZhiguan;
     @InjectView(R.id.ll_zichan)
     TextView llZichan;
-    private Bitmap bitmap;
+
+
+    private File filesDir;
+    private FileInputStream fis;
+    private Bitmap zoomBitmap;
 
 
     @Override
@@ -97,7 +107,7 @@ public class PropertFragment extends BaseFragment {
                     @Override
                     public Bitmap transform(Bitmap source) {
 
-                        bitmap = BitmapUtils.circleBitmap(source);
+                        Bitmap bitmap = BitmapUtils.circleBitmap(source);
                         source.recycle();
                         return bitmap;
                     }
@@ -108,9 +118,47 @@ public class PropertFragment extends BaseFragment {
                     }
                 }).into(ivMeIcon);
 
-        Bitmap bitmap = getActivity().getIntent().getParcelableExtra("11");
-        ivMeIcon.setImageBitmap(bitmap);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Boolean update = CacheUtils.isUpdate();
+        if (update) {
+            try {
+                //判断有没有内存卡
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                    filesDir = getActivity().getExternalFilesDir("");
+                } else {
+                    //没有sd卡就保存在内存
+                    filesDir = getActivity().getFilesDir();
+                }
+
+                File path = new File(filesDir, "123.png");
+
+                if (path.exists()) {
+                    //输出  从SD卡或内存中出来
+                    fis = new FileInputStream(path);
+                    Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                    Bitmap circleBitmap = BitmapUtils.circleBitmap(bitmap);
+                    zoomBitmap = BitmapUtils.zoom(circleBitmap, ivMeIcon.getWidth(), ivMeIcon.getHeight());
+                    ivMeIcon.setImageBitmap(zoomBitmap);
+                    CacheUtils.saveImage(false);
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (fis != null) {
+                        fis.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -153,7 +201,7 @@ public class PropertFragment extends BaseFragment {
 
     private void set() {
         Intent intent = new Intent(getActivity(), SettingActivity.class);
-        intent.putExtra("bitmap", bitmap);
+        intent.putExtra("bitmap", zoomBitmap);
         startActivity(intent);
     }
 }
