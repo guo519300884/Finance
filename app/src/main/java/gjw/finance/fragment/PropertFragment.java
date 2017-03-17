@@ -1,6 +1,8 @@
 package gjw.finance.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -24,7 +26,6 @@ import butterknife.OnClick;
 import gjw.finance.R;
 import gjw.finance.activity.BarChartActivity;
 import gjw.finance.activity.LineChartActivity;
-import gjw.finance.activity.MainActivity;
 import gjw.finance.activity.PieChartActivity;
 import gjw.finance.activity.SettingActivity;
 import gjw.finance.activity.TopUpActivity;
@@ -70,6 +71,7 @@ public class PropertFragment extends BaseFragment {
     private File filesDir;
     private FileInputStream fis;
     private Bitmap zoomBitmap;
+    private Bitmap bitmap;
 
 
     @Override
@@ -80,7 +82,7 @@ public class PropertFragment extends BaseFragment {
     @Override
     protected void initData(String json) {
 
-        MainActivity mainActivity = (MainActivity) getActivity();
+//        MainActivity mainActivity = (MainActivity) getActivity();
 //        UserInfo user = mainActivity.getUser();
 
         UserInfo user = CacheUtils.getUser();
@@ -107,7 +109,7 @@ public class PropertFragment extends BaseFragment {
                     @Override
                     public Bitmap transform(Bitmap source) {
 
-                        Bitmap bitmap = BitmapUtils.circleBitmap(source);
+                        bitmap = BitmapUtils.circleBitmap(source);
                         source.recycle();
                         return bitmap;
                     }
@@ -176,10 +178,10 @@ public class PropertFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_settings:
-                set();
+                setHead();
                 break;
             case R.id.iv_me_icon:
-                set();
+                setHead();
                 break;
             case R.id.ll_touzi:
                 startActivity(new Intent(getActivity(), LineChartActivity.class));
@@ -199,9 +201,19 @@ public class PropertFragment extends BaseFragment {
         }
     }
 
-    private void set() {
-        Intent intent = new Intent(getActivity(), SettingActivity.class);
-        intent.putExtra("bitmap", zoomBitmap);
-        startActivity(intent);
+    private void setHead() {
+        SharedPreferences sp = getActivity().getSharedPreferences("btn", Context.MODE_PRIVATE);
+        boolean first = sp.getBoolean("First", true);
+        if (first) {
+            sp.edit().putBoolean("First", false).commit();
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
+            intent.putExtra("bitmap", bitmap);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
+            intent.putExtra("bitmap", zoomBitmap);
+            startActivity(intent);
+        }
     }
+
 }
