@@ -1,4 +1,4 @@
-package gjw.finance.fragment;
+package gjw.finance.activity;
 
 import android.os.Handler;
 import android.os.Message;

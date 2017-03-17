@@ -55,12 +55,12 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".fragment.SettingActivity" />
+        <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.LineChartActivity" />
         <activity android:name=".activity.BarChartActivity" />
         <activity android:name=".activity.PieChartActivity" />
-        <activity android:name=".fragment.TopUpActivity" />
-        <activity android:name=".fragment.WithdrawActivity"/>
+        <activity android:name=".activity.TopUpActivity" />
+        <activity android:name=".activity.WithdrawActivity"/>
 
         <!-- alipay sdk begin -->
         <activity

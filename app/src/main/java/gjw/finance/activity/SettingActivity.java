@@ -1,4 +1,4 @@
-package gjw.finance.fragment;
+package gjw.finance.activity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
@@ -26,7 +26,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
 import gjw.finance.base.BaseActivity;
-import gjw.finance.activity.LoginActivity;
+import gjw.finance.fragment.PropertFragment;
 import gjw.finance.utils.BitmapUtils;
 import gjw.finance.utils.CacheUtils;
 import gjw.finance.utils.UIUtils;
@@ -124,23 +124,21 @@ public class SettingActivity extends BaseActivity {
                         switch (which) {
                             case 0:
                                 //调用摄像头
-                                camera();
+                                Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                //带回调数据的启动
+                                startActivityForResult(camera, CAMERA);
                                 break;
                             case 1:
                                 //调用图库
-                                photoAlbum();
+                                Intent picture = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                //带回调数据的启动
+                                startActivityForResult(picture, 9);
                                 break;
                         }
                     }
                 }).show();
     }
 
-
-    private void camera() {
-        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //带回调数据的启动
-        startActivityForResult(camera, CAMERA);
-    }
 
     //数据回传
     @Override
@@ -160,7 +158,7 @@ public class SettingActivity extends BaseActivity {
             CacheUtils.saveBitmap(circleBitmap);
 
         } else {
-
+            //解析图库的操作，跟android系统有很大相关性。不同的系统使用uri的authority有很大不同。
             //android各个不同的系统版本,对于获取外部存储上的资源，返回的Uri对象都可能各不一样,
             // 所以要保证无论是哪个系统版本都能正确获取到图片资源的话就需要针对各种情况进行一个处理了
             //这里返回的uri情况就有点多了
@@ -169,20 +167,19 @@ public class SettingActivity extends BaseActivity {
 
             Uri selectedImage = data.getData();
             String path = getPath(selectedImage);
-
+            //保存到内存中
             Bitmap decodeFile = BitmapFactory.decodeFile(path);
+            //压缩图片
             Bitmap zoomBitmap = BitmapUtils.zoom(decodeFile, ivUserIcon.getWidth(), ivUserIcon.getHeight());
+            //裁剪图片
             Bitmap circleBitmap = BitmapUtils.circleBitmap(zoomBitmap);
+            //显示
             ivUserIcon.setImageBitmap(circleBitmap);
-            CacheUtils.saveBitmap(circleBitmap);
+            //保存到本地
+            CacheUtils.saveBitmap(decodeFile);
         }
     }
 
-    private void photoAlbum() {
-        Intent picture = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        //带回调数据的启动
-        startActivityForResult(picture, 9);
-    }
 
     /**
      * 根据系统相册选择的文件获取路径

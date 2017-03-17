@@ -1,4 +1,4 @@
-package gjw.finance.fragment;
+package gjw.finance.activity;
 
 import android.text.Editable;
 import android.text.TextUtils;
