@@ -1,4 +1,4 @@
-package gjw.finance.fragment;
+package gjw.finance.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -63,7 +63,7 @@ public abstract class BaseFragment extends Fragment {
     protected abstract String getChildUrl();
 
 
-    protected abstract void initListener();
+//    protected abstract void initListener();
 
     @Override
     public void onDestroy() {

@@ -10,6 +10,7 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
+import gjw.finance.base.BaseFragment;
 import gjw.finance.utils.UIUtils;
 import gjw.finance.view.randomLayout.StellarMap;
 
@@ -63,10 +64,6 @@ public class InvestRecommendFragment extends BaseFragment {
         return null;
     }
 
-    @Override
-    protected void initListener() {
-
-    }
 
 
     class RecommendAdapter implements StellarMap.Adapter {

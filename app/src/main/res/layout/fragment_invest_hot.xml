@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <com.zhy.view.flowlayout.TagFlowLayout
             android:id="@+id/ivest_hot_fl"

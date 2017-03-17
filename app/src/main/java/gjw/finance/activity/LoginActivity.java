@@ -20,6 +20,7 @@ import java.util.Map;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
+import gjw.finance.base.BaseActivity;
 import gjw.finance.bean.UserInfo;
 import gjw.finance.utils.AppNetConfig;
 import gjw.finance.utils.CacheUtils;

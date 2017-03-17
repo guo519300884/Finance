@@ -14,6 +14,7 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
+import gjw.finance.base.BaseFragment;
 
 /**
  * Created by 皇上 on 2017/3/14.
@@ -69,10 +70,6 @@ public class InvestHotFragment extends BaseFragment {
         return null;
     }
 
-    @Override
-    protected void initListener() {
-
-    }
 
     @Override
     public void onDestroyView() {

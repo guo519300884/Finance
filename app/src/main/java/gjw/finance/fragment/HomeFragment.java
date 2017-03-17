@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
+import gjw.finance.base.BaseFragment;
 import gjw.finance.bean.HomeBean;
 import gjw.finance.utils.AppNetConfig;
 import gjw.finance.utils.ThreadPool;

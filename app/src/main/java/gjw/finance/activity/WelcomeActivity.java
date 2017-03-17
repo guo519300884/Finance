@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.InjectView;
 import gjw.finance.R;
+import gjw.finance.base.BaseActivity;
 import gjw.finance.utils.AppManager;
 import gjw.finance.utils.CacheUtils;
 

@@ -1,4 +1,4 @@
-package gjw.finance.activity;
+package gjw.finance.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

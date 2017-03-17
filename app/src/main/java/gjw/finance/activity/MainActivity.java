@@ -17,7 +17,8 @@ import java.util.TimerTask;
 
 import butterknife.InjectView;
 import gjw.finance.R;
-import gjw.finance.fragment.BaseFragment;
+import gjw.finance.base.BaseActivity;
+import gjw.finance.base.BaseFragment;
 import gjw.finance.fragment.HomeFragment;
 import gjw.finance.fragment.InvestFragment;
 import gjw.finance.fragment.MoreFragment;

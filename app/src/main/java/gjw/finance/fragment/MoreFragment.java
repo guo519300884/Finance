@@ -7,6 +7,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
+import gjw.finance.base.BaseFragment;
 import gjw.finance.utils.AppNetConfig;
 
 /**
@@ -37,10 +38,7 @@ public class MoreFragment extends BaseFragment {
         return AppNetConfig.INDEX;
     }
 
-    @Override
-    protected void initListener() {
 
-    }
 
     @Override
     public void onDestroyView() {

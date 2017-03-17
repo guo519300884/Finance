@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import gjw.finance.R;
 import gjw.finance.adapter.InvestAllAdapter03;
+import gjw.finance.base.BaseFragment;
 import gjw.finance.bean.InvestAllBean;
 
 /**
@@ -46,16 +47,6 @@ public class InvestAllFragment extends BaseFragment {
         investAllAdapter = new InvestAllAdapter03(investAllBeanData);
         lvAll.setAdapter(investAllAdapter);
 
-        initListener();
-    }
-
-    @Override
-    protected String getChildUrl() {
-        return null;
-    }
-
-    @Override
-    protected void initListener() {
         TranslateAnimation ta = new TranslateAnimation(500, -500, 0, 0);
         ta.setDuration(5000);
         ta.setRepeatCount(500);
@@ -64,7 +55,14 @@ public class InvestAllFragment extends BaseFragment {
 //        tvProductTitle.setFocusable(true);
 //        tvProductTitle.setFocusableInTouchMode(true);
 //        tvProductTitle.requestFocus();
+
     }
+
+    @Override
+    protected String getChildUrl() {
+        return null;
+    }
+
 
     @Override
     public void onDestroyView() {

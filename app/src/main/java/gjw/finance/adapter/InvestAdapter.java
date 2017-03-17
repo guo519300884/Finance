@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import gjw.finance.fragment.BaseFragment;
+import gjw.finance.base.BaseFragment;
 
 /**
  * Created by 皇上 on 2017/3/14.

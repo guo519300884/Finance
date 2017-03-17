@@ -14,6 +14,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
 import gjw.finance.adapter.InvestAdapter;
+import gjw.finance.base.BaseFragment;
 import gjw.finance.utils.AppNetConfig;
 
 /**
@@ -55,12 +56,11 @@ public class InvestFragment extends BaseFragment {
         initFragment();
         //初始化 ViewPaper
         initViewPager();
-        //设置标题头
-        initListener();
 
         //默认选中第一个
         selectText(0);
 
+        vpInvest.setOnPageChangeListener(new MyOnPageChangeListener());
 
     }
 
@@ -82,11 +82,7 @@ public class InvestFragment extends BaseFragment {
         return AppNetConfig.PRODUCT;
     }
 
-    @Override
-    protected void initListener() {
-        vpInvest.setOnPageChangeListener(new MyOnPageChangeListener());
 
-    }
 
     @Override
     public void onDestroyView() {

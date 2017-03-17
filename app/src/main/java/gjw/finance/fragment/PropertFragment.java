@@ -15,8 +15,13 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
+import gjw.finance.activity.LineChartActivity;
+import gjw.finance.activity.PieChartActivity;
+import gjw.finance.activity.BarChartActivity;
 import gjw.finance.activity.MainActivity;
+import gjw.finance.base.BaseFragment;
 import gjw.finance.bean.UserInfo;
+import gjw.finance.utils.AppNetConfig;
 import gjw.finance.utils.BitmapUtils;
 import gjw.finance.utils.CacheUtils;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
@@ -51,6 +56,7 @@ public class PropertFragment extends BaseFragment {
     TextView llTouziZhiguan;
     @InjectView(R.id.ll_zichan)
     TextView llZichan;
+    private Bitmap bitmap;
 
 
     @Override
@@ -71,8 +77,8 @@ public class PropertFragment extends BaseFragment {
         tvMeName.setText(user.getData().getName());
         //设置头像
         Picasso.with(getContext())
-//                .load(AppNetConfig.BASE_URL + "/images/tx.png")
-                .load("http://pic32.nipic.com/20130813/9422601_092545438000_2.jpg")
+                .load(AppNetConfig.BASE_URL + "/images/tx.png")
+//                .load("http://pic32.nipic.com/20130813/9422601_092545438000_2.jpg")
                 //加颜色
                 .transform(new ColorFilterTransformation(Color.parseColor("#22ff0000")))
 
@@ -88,11 +94,9 @@ public class PropertFragment extends BaseFragment {
                     @Override
                     public Bitmap transform(Bitmap source) {
 
-                        Bitmap circleBitmap = BitmapUtils.circleBitmap(source);
-
+                        bitmap = BitmapUtils.circleBitmap(source);
                         source.recycle();
-
-                        return circleBitmap;
+                        return bitmap;
                     }
 
                     @Override
@@ -100,6 +104,9 @@ public class PropertFragment extends BaseFragment {
                         return "";
                     }
                 }).into(ivMeIcon);
+
+        Bitmap bitmap = getActivity().getIntent().getParcelableExtra("11");
+        ivMeIcon.setImageBitmap(bitmap);
 
     }
 
@@ -109,28 +116,36 @@ public class PropertFragment extends BaseFragment {
     }
 
     @Override
-    protected void initListener() {
-
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
 
-    @OnClick({R.id.tv_settings, R.id.iv_me_icon})
+    @OnClick({R.id.tv_settings, R.id.iv_me_icon, R.id.ll_touzi, R.id.ll_touzi_zhiguan, R.id.ll_zichan})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_settings:
-
-                Intent intent = new Intent(getActivity(), SettingActivity.class);
-                startActivity(intent);
-
+                set();
                 break;
             case R.id.iv_me_icon:
-
+                set();
+                break;
+            case R.id.ll_touzi:
+                startActivity(new Intent(getActivity(), LineChartActivity.class));
+                break;
+            case R.id.ll_touzi_zhiguan:
+                startActivity(new Intent(getActivity(), BarChartActivity.class));
+                break;
+            case R.id.ll_zichan:
+                startActivity(new Intent(getActivity(), PieChartActivity.class));
                 break;
         }
     }
+
+    private void set() {
+        Intent intent = new Intent(getActivity(), SettingActivity.class);
+        intent.putExtra("bitmap", bitmap);
+        startActivity(intent);
+    }
+
 }
