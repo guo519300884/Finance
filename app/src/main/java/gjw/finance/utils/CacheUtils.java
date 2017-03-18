@@ -1,6 +1,7 @@
 package gjw.finance.utils;
 
 import android.content.SharedPreferences;
+import android.os.Environment;
 
 import java.io.File;
 
@@ -56,5 +57,28 @@ public class CacheUtils {
     public static Boolean isUpdate() {
         SharedPreferences sp = context.getSharedPreferences("image", MODE_PRIVATE);
         return sp.getBoolean("update", false);
+    }
+
+    //清除缓存
+    public static void cleatSP() {
+        SharedPreferences user = context.getSharedPreferences("user_info", MODE_PRIVATE);
+        SharedPreferences image = context.getSharedPreferences("image", MODE_PRIVATE);
+        //清除保存的数据
+        user.edit().clear().commit();
+        image.edit().clear().commit();
+    }
+
+    //清除存储数据的目录
+    public static void clearFile() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            filesDir = context.getExternalFilesDir("");
+        } else {
+            filesDir = context.getFilesDir();
+        }
+        File path = new File(filesDir, "123.png");
+        if (path.exists()) {
+            //删除目录
+            path.delete();
+        }
     }
 }

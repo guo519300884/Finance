@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Finance.iml" filepath="$PROJECT_DIR$/Finance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GestureLock/GestureLock.iml" filepath="$PROJECT_DIR$/GestureLock/GestureLock.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

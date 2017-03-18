@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -25,6 +26,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
 import gjw.finance.activity.BarChartActivity;
+import gjw.finance.activity.GestureVerifyActivity;
 import gjw.finance.activity.LineChartActivity;
 import gjw.finance.activity.PieChartActivity;
 import gjw.finance.activity.SettingActivity;
@@ -32,9 +34,9 @@ import gjw.finance.activity.TopUpActivity;
 import gjw.finance.activity.WithdrawActivity;
 import gjw.finance.base.BaseFragment;
 import gjw.finance.bean.UserInfo;
-import gjw.finance.utils.AppNetConfig;
 import gjw.finance.utils.BitmapUtils;
 import gjw.finance.utils.CacheUtils;
+import gjw.finance.utils.GestureUtils;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import jp.wasabeef.picasso.transformations.ColorFilterTransformation;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -82,7 +84,7 @@ public class PropertFragment extends BaseFragment {
     @Override
     protected void initData(String json) {
 
-//        MainActivity mainActivity = (MainActivity) getActivity();
+//        GestureMainActivity mainActivity = (GestureMainActivity) getActivity();
 //        UserInfo user = mainActivity.getUser();
 
         UserInfo user = CacheUtils.getUser();
@@ -92,8 +94,8 @@ public class PropertFragment extends BaseFragment {
         tvMeName.setText(user.getData().getName());
         //设置头像
         Picasso.with(getContext())
-                .load(AppNetConfig.BASE_URL + "/images/tx.png")
-//                .load("http://pic32.nipic.com/20130813/9422601_092545438000_2.jpg")
+//                .load(AppNetConfig.BASE_URL + "/images/tx.png")
+                .load("http://pic32.nipic.com/20130813/9422601_092545438000_2.jpg")
                 //加颜色
                 .transform(new ColorFilterTransformation(Color.parseColor("#22ff0000")))
 
@@ -196,7 +198,20 @@ public class PropertFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), TopUpActivity.class));
                 break;
             case R.id.withdraw:
-                startActivity(new Intent(getActivity(), WithdrawActivity.class));
+
+//                SharedPreferences sp = getActivity().getSharedPreferences("tog", Context.MODE_PRIVATE);
+//                boolean isOpen = sp.getBoolean("isOpen", false);
+
+                boolean isOpen = GestureUtils.getState();
+
+                //验证手势密码
+                if (isOpen) {
+                    startActivity(new Intent(getActivity(), GestureVerifyActivity.class));
+                } else {
+                    startActivity(new Intent(getActivity(), WithdrawActivity.class));
+                    Toast.makeText(getActivity(), "提现", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
     }

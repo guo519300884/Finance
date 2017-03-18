@@ -83,7 +83,6 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-
                 login();
                 break;
             case R.id.login_regitster_tv:
@@ -127,6 +126,7 @@ public class LoginActivity extends BaseActivity {
                     CacheUtils.setUser(userInfo);
                     //跳转到登录页面
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
                     finish();
 
                 } else {

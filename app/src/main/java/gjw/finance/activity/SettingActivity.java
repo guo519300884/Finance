@@ -5,7 +5,6 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,15 +30,18 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import gjw.finance.R;
 import gjw.finance.base.BaseActivity;
+import gjw.finance.utils.AppManager;
 import gjw.finance.utils.BitmapUtils;
 import gjw.finance.utils.CacheUtils;
 import gjw.finance.utils.UIUtils;
 
 import static android.media.MediaRecorder.VideoSource.CAMERA;
+import static gjw.finance.utils.CacheUtils.clearFile;
+import static gjw.finance.utils.CacheUtils.cleatSP;
 
 public class SettingActivity extends BaseActivity {
 
-    private static File filesDir;
+    private File filesDir;
     @InjectView(R.id.base_title)
     TextView baseTitle;
     @InjectView(R.id.base_back)
@@ -103,11 +105,9 @@ public class SettingActivity extends BaseActivity {
                 .setPositiveButton("……", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-                        SharedPreferences sp = getSharedPreferences("user_info", MODE_PRIVATE);
-                        //清除保存的数据
-                        sp.edit().clear().commit();
-
+                        cleatSP();
+                        clearFile();
+                        AppManager.getInstance().removeAll();
                         startActivity(new Intent(SettingActivity.this, LoginActivity.class));
                         finish();
                     }
@@ -183,7 +183,6 @@ public class SettingActivity extends BaseActivity {
 
     //保存图片  保存到本地 需要压缩compress
     public void saveImage(Bitmap bitmap) {
-
         FileOutputStream fos = null;
         try {
             //判断是否有SD卡
@@ -192,9 +191,11 @@ public class SettingActivity extends BaseActivity {
             } else {
                 filesDir = getFilesDir();
             }
+//            File path = new File(filesDir, "123.png");
+
             fos = new FileOutputStream(new File(filesDir, "123.png"));
             //第一个参数是图片的格式，第二个参数是图片的质量数值大的大质量高，第三个是输出流
-            circleBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             //保存当前是否有更新
             CacheUtils.saveImage(true);
         } catch (FileNotFoundException e) {

@@ -7,6 +7,7 @@ package gjw.finance.utils;
 public class AppNetConfig {
 
     public static final String HOST = "47.93.118.241";//提供ip地址
+//    public static final String HOST = "192.168.1.38";//提供ip地址
 
     //提供web应用的地址
 //    public static final String BASE_URL = "http://" + HOST + ":8080/P2PInvest/";
